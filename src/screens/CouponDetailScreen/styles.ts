@@ -46,3 +46,14 @@ export const ValidityText = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
 `;
+
+export const ActionWrapper = styled.View`
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+export const BlockedMessage = styled.Text`
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  line-height: ${({ theme }) => theme.typography.lineHeights.tight}px;
+  text-align: center;
+`;

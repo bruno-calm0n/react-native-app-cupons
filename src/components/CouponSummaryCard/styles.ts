@@ -1,5 +1,30 @@
 import styled from 'styled-components/native';
 
+import type { CouponAvailability } from '../../types/coupon';
+
+type AvailabilityProps = {
+  $availability: CouponAvailability;
+};
+
+function getStatusColor(
+  availability: CouponAvailability,
+  theme: import('styled-components/native').DefaultTheme,
+) {
+  if (availability === 'expired') {
+    return theme.colors.danger;
+  }
+
+  if (availability === 'used') {
+    return theme.colors.textMuted;
+  }
+
+  if (availability === 'expiringSoon') {
+    return theme.colors.warning;
+  }
+
+  return theme.colors.primary;
+}
+
 export const Container = styled.View`
   width: 100%;
   border-radius: ${({ theme }) => theme.radii.lg}px;
@@ -36,6 +61,23 @@ export const Store = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.lg}px;
   margin-top: ${({ theme }) => theme.spacing.xxs}px;
+`;
+
+export const StatusBadge = styled.View<AvailabilityProps>`
+  align-self: flex-start;
+  border-radius: ${({ theme }) => theme.radii.pill}px;
+  border-width: ${({ theme }) => theme.borderWidths.regular}px;
+  border-color: ${({ theme, $availability }) =>
+    getStatusColor($availability, theme)};
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+`;
+
+export const StatusText = styled.Text<AvailabilityProps>`
+  color: ${({ theme, $availability }) => getStatusColor($availability, theme)};
+  font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;
 
 export const Divider = styled.View`

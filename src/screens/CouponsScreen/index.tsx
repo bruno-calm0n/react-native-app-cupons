@@ -5,41 +5,72 @@ import { useTheme } from 'styled-components/native';
 
 import { CouponCard } from '../../components/CouponCard';
 import { EmptyState } from '../../components/EmptyState';
+import { FilterChip } from '../../components/FilterChip';
 import { SearchInput } from '../../components/SearchInput';
 import { coupons } from '../../mocks/coupons';
 import type { RootStackParamList } from '../../navigation/types';
+import type { CouponAvailability } from '../../types/coupon';
+import { getCouponAvailability } from '../../utils/couponStatus';
 import {
   Container,
   Eyebrow,
+  FiltersBar,
   Header,
   HeaderContent,
   List,
   ProfileButton,
   SafeArea,
   SearchWrapper,
-  Subtitle,
-  Title,
 } from './styles';
 
 type CouponsScreenProps = NativeStackScreenProps<RootStackParamList, 'Coupons'>;
+type CouponFilter = CouponAvailability | 'all';
+
+const filterOptions: Array<{ label: string; value: CouponFilter }> = [
+  { label: 'Todos', value: 'all' },
+  { label: 'Válidos', value: 'available' },
+  { label: 'Expirando', value: 'expiringSoon' },
+  { label: 'Usados', value: 'used' },
+  { label: 'Expirados', value: 'expired' },
+];
 
 export function CouponsScreen({ navigation }: CouponsScreenProps) {
   const theme = useTheme();
   const [search, setSearch] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState<CouponFilter>('all');
 
   const filteredCoupons = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
+    const availabilityPriority = {
+      expiringSoon: 0,
+      available: 1,
+      used: 2,
+      expired: 3,
+    };
 
-    if (!normalizedSearch) {
-      return coupons;
-    }
+    const searchedCoupons = normalizedSearch
+      ? coupons.filter((coupon) => {
+          const searchableContent =
+            `${coupon.title} ${coupon.store}`.toLowerCase();
 
-    return coupons.filter((coupon) => {
-      const searchableContent = `${coupon.title} ${coupon.store}`.toLowerCase();
+          return searchableContent.includes(normalizedSearch);
+        })
+      : [...coupons];
 
-      return searchableContent.includes(normalizedSearch);
+    const statusFilteredCoupons = searchedCoupons.filter((coupon) => {
+      if (selectedFilter === 'all') {
+        return true;
+      }
+
+      return getCouponAvailability(coupon) === selectedFilter;
     });
-  }, [search]);
+
+    return statusFilteredCoupons.sort(
+      (firstCoupon, secondCoupon) =>
+        availabilityPriority[getCouponAvailability(firstCoupon)] -
+        availabilityPriority[getCouponAvailability(secondCoupon)],
+    );
+  }, [search, selectedFilter]);
 
   return (
     <SafeArea edges={['top', 'bottom']}>
@@ -47,11 +78,6 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
         <Header>
           <HeaderContent>
             <Eyebrow>Cupons disponíveis</Eyebrow>
-            {/* <Title>Economize no que importa hoje.</Title> */}
-            {/* <Subtitle>
-              {filteredCoupons.length} cupons encontrados para restaurantes,
-              cafés e sobremesas.
-            </Subtitle> */}
           </HeaderContent>
 
           <ProfileButton activeOpacity={0.78}>
@@ -66,6 +92,17 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
             value={search}
           />
         </SearchWrapper>
+
+        <FiltersBar>
+          {filterOptions.map((filter) => (
+            <FilterChip
+              key={filter.value}
+              label={filter.label}
+              onPress={() => setSelectedFilter(filter.value)}
+              selected={selectedFilter === filter.value}
+            />
+          ))}
+        </FiltersBar>
 
         <List
           ListEmptyComponent={

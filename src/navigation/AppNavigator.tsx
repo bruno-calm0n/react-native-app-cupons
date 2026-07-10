@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { CouponCodeScreen } from '../screens/CouponCodeScreen';
 import { CouponDetailScreen } from '../screens/CouponDetailScreen';
 import { CouponsScreen } from '../screens/CouponsScreen';
 import { ForgotPasswordScreen } from '../screens/ForgotPasswordScreen';
@@ -24,6 +25,7 @@ export function AppNavigator() {
         <Stack.Screen component={ForgotPasswordScreen} name="ForgotPassword" />
         <Stack.Screen component={CouponsScreen} name="Coupons" />
         <Stack.Screen component={CouponDetailScreen} name="CouponDetail" />
+        <Stack.Screen component={CouponCodeScreen} name="CouponCode" />
       </Stack.Navigator>
     </NavigationContainer>
   );

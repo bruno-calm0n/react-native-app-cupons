@@ -6,4 +6,7 @@ export type RootStackParamList = {
   CouponDetail: {
     couponId: string;
   };
+  CouponCode: {
+    couponId: string;
+  };
 };

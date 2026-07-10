@@ -6,7 +6,9 @@ export const coupons: Coupon[] = [
     title: 'Pizza em Dobro',
     store: 'Pizzaria Bella',
     discountPercentage: 20,
-    validUntil: '2026-09-30',
+    validUntil: '2026-07-14',
+    status: 'available',
+    redeemCode: 'PIZZA20-4821',
     description:
       'Ganhe 20% de desconto na compra de duas pizzas grandes em sabores selecionados.',
     rules: [
@@ -21,6 +23,8 @@ export const coupons: Coupon[] = [
     store: 'Burger Point',
     discountPercentage: 15,
     validUntil: '2026-10-15',
+    status: 'available',
+    redeemCode: 'BURGER15-7394',
     description:
       'Economize no combo com burger artesanal, batata individual e refrigerante.',
     rules: [
@@ -35,6 +39,8 @@ export const coupons: Coupon[] = [
     store: 'Café Central',
     discountPercentage: 10,
     validUntil: '2026-08-31',
+    status: 'used',
+    redeemCode: 'CAFE10-1286',
     description:
       'Desconto em bebidas quentes e doces selecionados durante o periodo da tarde.',
     rules: [
@@ -48,7 +54,9 @@ export const coupons: Coupon[] = [
     title: 'Rodízio Especial',
     store: 'Sabor Brasil',
     discountPercentage: 25,
-    validUntil: '2026-11-20',
+    validUntil: '2026-07-01',
+    status: 'expired',
+    redeemCode: 'RODIZIO25-6402',
     description:
       'Aproveite desconto no rodizio completo para reservas realizadas antecipadamente.',
     rules: [
@@ -63,6 +71,8 @@ export const coupons: Coupon[] = [
     store: 'Doce Vida',
     discountPercentage: 30,
     validUntil: '2026-12-05',
+    status: 'available',
+    redeemCode: 'DOCE30-9051',
     description:
       'Desconto especial em sobremesas da vitrine para compras acima do valor minimo.',
     rules: [
