@@ -63,6 +63,18 @@ export const ProfileButton = styled.TouchableOpacity`
 `;
 
 export const SearchWrapper = styled.View`
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+export const FiltersBar = styled.ScrollView.attrs(({ theme }) => ({
+  contentContainerStyle: {
+    gap: theme.spacing.sm,
+    paddingRight: theme.spacing.xl,
+  },
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+}))`
+  flex-grow: 0;
   margin-bottom: ${({ theme }) => theme.spacing.xl}px;
 `;
 

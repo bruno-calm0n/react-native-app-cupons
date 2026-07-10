@@ -3,13 +3,20 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { CalendarDays, FileText, ShieldCheck } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
+import { AppButton } from '../../components/AppButton';
 import { CouponSummaryCard } from '../../components/CouponSummaryCard';
 import { InfoSection } from '../../components/InfoSection';
 import { ScreenHeader } from '../../components/ScreenHeader';
 import { coupons } from '../../mocks/coupons';
 import type { RootStackParamList } from '../../navigation/types';
+import {
+  canUseCoupon,
+  getCouponBlockedMessage,
+} from '../../utils/couponStatus';
 import { formatDateBR } from '../../utils/formatters';
 import {
+  ActionWrapper,
+  BlockedMessage,
   Bullet,
   Content,
   DescriptionText,
@@ -36,6 +43,8 @@ export function CouponDetailScreen({
       coupons[0],
     [route.params.couponId],
   );
+  const canUseCurrentCoupon = canUseCoupon(coupon);
+  const blockedMessage = getCouponBlockedMessage(coupon);
 
   return (
     <SafeArea edges={['top', 'bottom']}>
@@ -86,6 +95,21 @@ export function CouponDetailScreen({
         >
           <ValidityText>Válido até {formatDateBR(coupon.validUntil)}</ValidityText>
         </InfoSection>
+
+        <ActionWrapper>
+          {canUseCurrentCoupon ? (
+            <AppButton
+              onPress={() =>
+                navigation.navigate('CouponCode', {
+                  couponId: coupon.id,
+                })
+              }
+              title="Usar cupom"
+            />
+          ) : blockedMessage ? (
+            <BlockedMessage>{blockedMessage}</BlockedMessage>
+          ) : null}
+        </ActionWrapper>
       </Content>
     </SafeArea>
   );
