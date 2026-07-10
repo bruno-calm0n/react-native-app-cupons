@@ -3,6 +3,7 @@ export type RootStackParamList = {
   Login: undefined;
   ForgotPassword: undefined;
   Coupons: undefined;
+  Profile: undefined;
   CouponDetail: {
     couponId: string;
   };
