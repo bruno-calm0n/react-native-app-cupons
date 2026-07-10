@@ -6,6 +6,7 @@ import { CouponDetailScreen } from '../screens/CouponDetailScreen';
 import { CouponsScreen } from '../screens/CouponsScreen';
 import { ForgotPasswordScreen } from '../screens/ForgotPasswordScreen';
 import { LoginScreen } from '../screens/LoginScreen';
+import { ProfileScreen } from '../screens/ProfileScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import type { RootStackParamList } from './types';
 
@@ -24,6 +25,7 @@ export function AppNavigator() {
         <Stack.Screen component={LoginScreen} name="Login" />
         <Stack.Screen component={ForgotPasswordScreen} name="ForgotPassword" />
         <Stack.Screen component={CouponsScreen} name="Coupons" />
+        <Stack.Screen component={ProfileScreen} name="Profile" />
         <Stack.Screen component={CouponDetailScreen} name="CouponDetail" />
         <Stack.Screen component={CouponCodeScreen} name="CouponCode" />
       </Stack.Navigator>

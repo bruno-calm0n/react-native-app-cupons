@@ -9,7 +9,6 @@ import { FilterChip } from '../../components/FilterChip';
 import { SearchInput } from '../../components/SearchInput';
 import { coupons } from '../../mocks/coupons';
 import type { RootStackParamList } from '../../navigation/types';
-import type { CouponAvailability } from '../../types/coupon';
 import { getCouponAvailability } from '../../utils/couponStatus';
 import {
   Container,
@@ -24,12 +23,11 @@ import {
 } from './styles';
 
 type CouponsScreenProps = NativeStackScreenProps<RootStackParamList, 'Coupons'>;
-type CouponFilter = CouponAvailability | 'all';
+type CouponFilter = 'all' | 'valid' | 'used' | 'expired';
 
 const filterOptions: Array<{ label: string; value: CouponFilter }> = [
   { label: 'Todos', value: 'all' },
-  { label: 'Válidos', value: 'available' },
-  { label: 'Expirando', value: 'expiringSoon' },
+  { label: 'Válidos', value: 'valid' },
   { label: 'Usados', value: 'used' },
   { label: 'Expirados', value: 'expired' },
 ];
@@ -62,7 +60,16 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
         return true;
       }
 
-      return getCouponAvailability(coupon) === selectedFilter;
+      const couponAvailability = getCouponAvailability(coupon);
+
+      if (selectedFilter === 'valid') {
+        return (
+          couponAvailability === 'available' ||
+          couponAvailability === 'expiringSoon'
+        );
+      }
+
+      return couponAvailability === selectedFilter;
     });
 
     return statusFilteredCoupons.sort(
@@ -80,7 +87,11 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
             <Eyebrow>Cupons disponíveis</Eyebrow>
           </HeaderContent>
 
-          <ProfileButton activeOpacity={0.78}>
+          <ProfileButton
+            accessibilityLabel="Abrir perfil"
+            activeOpacity={0.78}
+            onPress={() => navigation.navigate('Profile')}
+          >
             <UserRound color={theme.colors.primary} size={28} strokeWidth={1.8} />
           </ProfileButton>
         </Header>
