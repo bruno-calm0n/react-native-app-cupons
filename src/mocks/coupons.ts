@@ -1,5 +1,11 @@
 import type { Coupon } from '../types/coupon';
 
+const hourInMilliseconds = 60 * 60 * 1000;
+
+function createFlashExpiration(hoursFromNow: number) {
+  return new Date(Date.now() + hoursFromNow * hourInMilliseconds).toISOString();
+}
+
 export const coupons: Coupon[] = [
   {
     id: 'pizza-em-dobro',
@@ -9,6 +15,8 @@ export const coupons: Coupon[] = [
     validUntil: '2026-07-14',
     status: 'available',
     redeemCode: 'PIZZA20-4821',
+    isFlash: true,
+    flashExpiresAt: createFlashExpiration(6),
     description:
       'Ganhe 20% de desconto na compra de duas pizzas grandes em sabores selecionados.',
     rules: [
@@ -25,6 +33,8 @@ export const coupons: Coupon[] = [
     validUntil: '2026-10-15',
     status: 'available',
     redeemCode: 'BURGER15-7394',
+    isFlash: true,
+    flashExpiresAt: createFlashExpiration(18),
     description:
       'Economize no combo com burger artesanal, batata individual e refrigerante.',
     rules: [

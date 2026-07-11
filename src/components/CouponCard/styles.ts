@@ -63,13 +63,35 @@ export const Store = styled.Text`
   margin-top: ${({ theme }) => theme.spacing.xxs}px;
 `;
 
+export const BadgesRow = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+export const FlashBadge = styled.View`
+  align-self: flex-start;
+  border-radius: ${({ theme }) => theme.radii.pill}px;
+  border-width: ${({ theme }) => theme.borderWidths.regular}px;
+  border-color: ${({ theme }) => theme.colors.warning};
+  background-color: ${({ theme }) => theme.colors.surfaceStrong};
+  padding: ${({ theme }) => theme.spacing.xs}px
+    ${({ theme }) => theme.spacing.sm}px;
+`;
+
+export const FlashText = styled.Text`
+  color: ${({ theme }) => theme.colors.warning};
+  font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+`;
+
 export const StatusBadge = styled.View<AvailabilityProps>`
   align-self: flex-start;
   border-radius: ${({ theme }) => theme.radii.pill}px;
   border-width: ${({ theme }) => theme.borderWidths.regular}px;
   border-color: ${({ theme, $availability }) =>
     getStatusColor($availability, theme)};
-  margin-top: ${({ theme }) => theme.spacing.sm}px;
   padding: ${({ theme }) => theme.spacing.xs}px
     ${({ theme }) => theme.spacing.sm}px;
 `;

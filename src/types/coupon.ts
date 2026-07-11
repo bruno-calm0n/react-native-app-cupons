@@ -10,6 +10,8 @@ export type Coupon = {
   validUntil: string;
   status: CouponStatus;
   redeemCode: string;
+  isFlash?: boolean;
+  flashExpiresAt?: string;
   description: string;
   rules: string[];
 };

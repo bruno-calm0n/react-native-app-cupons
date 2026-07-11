@@ -2,14 +2,21 @@ import { Tag } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import type { Coupon } from '../../types/coupon';
-import { getCouponAvailability } from '../../utils/couponStatus';
+import {
+  formatFlashCouponTimeLeft,
+  getCouponAvailability,
+  isFlashCouponActive,
+} from '../../utils/couponStatus';
 import { formatDiscount } from '../../utils/formatters';
 import { IconBadge } from '../IconBadge';
 import {
+  BadgesRow,
   Container,
   Content,
   Discount,
   DiscountBox,
+  FlashBadge,
+  FlashText,
   StatusBadge,
   StatusText,
   Store,
@@ -18,12 +25,19 @@ import {
 
 type CouponCardProps = {
   coupon: Coupon;
+  now?: Date;
   onPress: () => void;
 };
 
-export function CouponCard({ coupon, onPress }: CouponCardProps) {
+export function CouponCard({
+  coupon,
+  now = new Date(),
+  onPress,
+}: CouponCardProps) {
   const theme = useTheme();
-  const availability = getCouponAvailability(coupon);
+  const availability = getCouponAvailability(coupon, now);
+  const isActiveFlashCoupon = isFlashCouponActive(coupon, now);
+  const flashTimeLeft = formatFlashCouponTimeLeft(coupon, now);
   const statusLabel = {
     available: '',
     expiringSoon: 'Expira em breve',
@@ -44,10 +58,22 @@ export function CouponCard({ coupon, onPress }: CouponCardProps) {
       <Content>
         <Title numberOfLines={1}>{coupon.title}</Title>
         <Store numberOfLines={1}>{coupon.store}</Store>
-        {statusLabel ? (
-          <StatusBadge $availability={availability}>
-            <StatusText $availability={availability}>{statusLabel}</StatusText>
-          </StatusBadge>
+        {isActiveFlashCoupon || statusLabel ? (
+          <BadgesRow>
+            {isActiveFlashCoupon ? (
+              <FlashBadge>
+                <FlashText numberOfLines={1}>
+                  Relâmpago · {flashTimeLeft}
+                </FlashText>
+              </FlashBadge>
+            ) : null}
+
+            {statusLabel ? (
+              <StatusBadge $availability={availability}>
+                <StatusText $availability={availability}>{statusLabel}</StatusText>
+              </StatusBadge>
+            ) : null}
+          </BadgesRow>
         ) : null}
       </Content>
 
