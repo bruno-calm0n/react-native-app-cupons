@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
+import { Linking, Share } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { BadgePercent, Ticket } from 'lucide-react-native';
+import { BadgePercent, Share2, Ticket } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { AppButton } from '../../components/AppButton';
@@ -82,10 +83,29 @@ export function CouponCodeScreen({
     );
   }
 
-  const availability = getCouponAvailability(coupon);
+  const selectedCoupon = coupon;
+
+  const availability = getCouponAvailability(selectedCoupon);
   const canShowCode =
     availability === 'available' || availability === 'expiringSoon';
-  const unavailableMessage = getCouponBlockedMessage(coupon);
+  const unavailableMessage = getCouponBlockedMessage(selectedCoupon);
+
+  async function handleShareCouponCode() {
+    const message = [
+      `${selectedCoupon.title} - ${selectedCoupon.store}`,
+      `Código: ${selectedCoupon.redeemCode}`,
+      `Desconto: ${formatDiscount(selectedCoupon.discountPercentage)}`,
+      `Válido até: ${formatDateBR(selectedCoupon.validUntil)}`,
+    ].join('\n');
+    const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(message)}`;
+
+    if (await Linking.canOpenURL(whatsappUrl)) {
+      await Linking.openURL(whatsappUrl);
+      return;
+    }
+
+    await Share.share({ message });
+  }
 
   return (
     <Screen>
@@ -98,8 +118,8 @@ export function CouponCodeScreen({
 
           <MainCardWrapper>
             <AppCard>
-              <CouponName>{coupon.title}</CouponName>
-              <StoreName>{coupon.store}</StoreName>
+              <CouponName>{selectedCoupon.title}</CouponName>
+              <StoreName>{selectedCoupon.store}</StoreName>
 
               {canShowCode ? (
                 <>
@@ -110,7 +130,7 @@ export function CouponCodeScreen({
 
                   <CodeBox>
                     <CodeLabel>Código do cupom</CodeLabel>
-                    <CodeText>{coupon.redeemCode}</CodeText>
+                    <CodeText>{selectedCoupon.redeemCode}</CodeText>
                   </CodeBox>
                 </>
               ) : (
@@ -137,8 +157,8 @@ export function CouponCodeScreen({
             title="Benefício"
           >
             <InfoText>
-              {formatDiscount(coupon.discountPercentage)} de desconto. Válido até{' '}
-              {formatDateBR(coupon.validUntil)}.
+              {formatDiscount(selectedCoupon.discountPercentage)} de desconto.
+              Válido até {formatDateBR(selectedCoupon.validUntil)}.
             </InfoText>
           </InfoSection>
 
@@ -152,6 +172,21 @@ export function CouponCodeScreen({
           </InfoSection>
 
           <ActionStack>
+            {canShowCode ? (
+              <AppButton
+                icon={
+                  <Share2
+                    color={theme.colors.primary}
+                    size={20}
+                    strokeWidth={1.9}
+                  />
+                }
+                onPress={handleShareCouponCode}
+                title="Compartilhar no WhatsApp"
+                variant="secondary"
+              />
+            ) : null}
+
             <AppButton
               onPress={() => navigation.navigate('Coupons')}
               title="Voltar para cupons"
