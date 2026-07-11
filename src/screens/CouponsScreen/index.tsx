@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { UserRound } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
@@ -9,7 +9,10 @@ import { FilterChip } from '../../components/FilterChip';
 import { SearchInput } from '../../components/SearchInput';
 import { coupons } from '../../mocks/coupons';
 import type { RootStackParamList } from '../../navigation/types';
-import { getCouponAvailability } from '../../utils/couponStatus';
+import {
+  getCouponAvailability,
+  isFlashCouponActive,
+} from '../../utils/couponStatus';
 import {
   Container,
   Eyebrow,
@@ -23,10 +26,11 @@ import {
 } from './styles';
 
 type CouponsScreenProps = NativeStackScreenProps<RootStackParamList, 'Coupons'>;
-type CouponFilter = 'all' | 'valid' | 'unavailable';
+type CouponFilter = 'all' | 'flash' | 'valid' | 'unavailable';
 
 const filterOptions: Array<{ label: string; value: CouponFilter }> = [
   { label: 'Todos', value: 'all' },
+  { label: 'Relâmpago', value: 'flash' },
   { label: 'Válidos', value: 'valid' },
   { label: 'Usados/Expirados', value: 'unavailable' },
 ];
@@ -35,6 +39,15 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
   const theme = useTheme();
   const [search, setSearch] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<CouponFilter>('all');
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const filteredCoupons = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -59,7 +72,11 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
         return true;
       }
 
-      const couponAvailability = getCouponAvailability(coupon);
+      const couponAvailability = getCouponAvailability(coupon, now);
+
+      if (selectedFilter === 'flash') {
+        return isFlashCouponActive(coupon, now);
+      }
 
       if (selectedFilter === 'valid') {
         return (
@@ -73,10 +90,10 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
 
     return statusFilteredCoupons.sort(
       (firstCoupon, secondCoupon) =>
-        availabilityPriority[getCouponAvailability(firstCoupon)] -
-        availabilityPriority[getCouponAvailability(secondCoupon)],
+        availabilityPriority[getCouponAvailability(firstCoupon, now)] -
+        availabilityPriority[getCouponAvailability(secondCoupon, now)],
     );
-  }, [search, selectedFilter]);
+  }, [now, search, selectedFilter]);
 
   return (
     <SafeArea edges={['top', 'bottom']}>
@@ -126,6 +143,7 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
           renderItem={({ item }) => (
             <CouponCard
               coupon={item}
+              now={now}
               onPress={() =>
                 navigation.navigate('CouponDetail', {
                   couponId: item.id,
