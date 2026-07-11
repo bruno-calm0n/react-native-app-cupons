@@ -99,7 +99,7 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
         <SearchWrapper>
           <SearchInput
             onChangeText={setSearch}
-            placeholder="Pesquisar cupons"
+            placeholder="Pesquisar estabelecimentos e cupons"
             value={search}
           />
         </SearchWrapper>
