@@ -1,12 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BadgePercent, Ticket } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { AppButton } from '../../components/AppButton';
 import { AppCard } from '../../components/AppCard';
-import { AppDialog } from '../../components/AppDialog';
-import { AppToast } from '../../components/AppToast';
 import { InfoSection } from '../../components/InfoSection';
 import { ScreenHeader } from '../../components/ScreenHeader';
 import { coupons } from '../../mocks/coupons';
@@ -44,9 +42,6 @@ export function CouponCodeScreen({
   route,
 }: CouponCodeScreenProps) {
   const theme = useTheme();
-  const [isMarkedAsUsed, setIsMarkedAsUsed] = useState(false);
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
 
   const coupon = useMemo(
     () =>
@@ -87,18 +82,10 @@ export function CouponCodeScreen({
     );
   }
 
-  const availability = isMarkedAsUsed ? 'used' : getCouponAvailability(coupon);
+  const availability = getCouponAvailability(coupon);
   const canShowCode =
     availability === 'available' || availability === 'expiringSoon';
-  const unavailableMessage = isMarkedAsUsed
-    ? 'Este cupom já foi usado.'
-    : getCouponBlockedMessage(coupon);
-
-  function handleConfirmUsage() {
-    setIsDialogVisible(false);
-    setIsMarkedAsUsed(true);
-    setToastMessage('Cupom marcado como usado.');
-  }
+  const unavailableMessage = getCouponBlockedMessage(coupon);
 
   return (
     <Screen>
@@ -165,13 +152,6 @@ export function CouponCodeScreen({
           </InfoSection>
 
           <ActionStack>
-            {canShowCode ? (
-              <AppButton
-                onPress={() => setIsDialogVisible(true)}
-                title="Marcar como usado"
-              />
-            ) : null}
-
             <AppButton
               onPress={() => navigation.navigate('Coupons')}
               title="Voltar para cupons"
@@ -180,21 +160,6 @@ export function CouponCodeScreen({
           </ActionStack>
         </Content>
       </SafeArea>
-
-      <AppDialog
-        confirmLabel="Confirmar"
-        message="Depois de marcar este cupom como usado, o código ficará oculto nesta tela."
-        onCancel={() => setIsDialogVisible(false)}
-        onConfirm={handleConfirmUsage}
-        title="Confirmar uso do cupom"
-        visible={isDialogVisible}
-      />
-
-      <AppToast
-        message={toastMessage}
-        onHide={() => setToastMessage('')}
-        visible={Boolean(toastMessage)}
-      />
     </Screen>
   );
 }
