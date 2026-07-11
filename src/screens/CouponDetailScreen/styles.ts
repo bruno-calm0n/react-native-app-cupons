@@ -42,11 +42,6 @@ export const RuleText = styled.Text`
   line-height: ${({ theme }) => theme.typography.lineHeights.regular}px;
 `;
 
-export const ValidityText = styled.Text`
-  color: ${({ theme }) => theme.colors.textMuted};
-  font-size: ${({ theme }) => theme.typography.sizes.md}px;
-`;
-
 export const ActionWrapper = styled.View`
   margin-top: ${({ theme }) => theme.spacing.sm}px;
 `;
