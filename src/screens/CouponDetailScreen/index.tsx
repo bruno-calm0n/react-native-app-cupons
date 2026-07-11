@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { CalendarDays, FileText, ShieldCheck } from 'lucide-react-native';
+import { FileText, ShieldCheck } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { AppButton } from '../../components/AppButton';
@@ -13,7 +13,6 @@ import {
   canUseCoupon,
   getCouponBlockedMessage,
 } from '../../utils/couponStatus';
-import { formatDateBR } from '../../utils/formatters';
 import {
   ActionWrapper,
   BlockedMessage,
@@ -23,7 +22,6 @@ import {
   RuleRow,
   RuleText,
   SafeArea,
-  ValidityText,
 } from './styles';
 
 type CouponDetailScreenProps = NativeStackScreenProps<
@@ -81,19 +79,6 @@ export function CouponDetailScreen({
               <RuleText>{rule}</RuleText>
             </RuleRow>
           ))}
-        </InfoSection>
-
-        <InfoSection
-          icon={
-            <CalendarDays
-              color={theme.colors.primary}
-              size={28}
-              strokeWidth={1.7}
-            />
-          }
-          title="Validade"
-        >
-          <ValidityText>Válido até {formatDateBR(coupon.validUntil)}</ValidityText>
         </InfoSection>
 
         <ActionWrapper>
