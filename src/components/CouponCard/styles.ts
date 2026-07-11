@@ -26,7 +26,7 @@ function getStatusColor(
 }
 
 export const Container = styled.TouchableOpacity<AvailabilityProps>`
-  min-height: 96px;
+  min-height: 124px;
   width: 100%;
   border-radius: ${({ theme }) => theme.radii.lg}px;
   border-width: ${({ theme }) => theme.borderWidths.regular}px;
@@ -45,9 +45,68 @@ export const Container = styled.TouchableOpacity<AvailabilityProps>`
     $availability === 'expired' || $availability === 'used' ? 0.72 : 1};
 `;
 
+export const MediaWrapper = styled.View`
+  width: 76px;
+  height: 76px;
+  margin-right: ${({ theme }) => theme.spacing.lg}px;
+`;
+
+export const ProductImage = styled.Image.attrs({
+  resizeMode: 'cover',
+})`
+  width: 76px;
+  height: 76px;
+  border-radius: ${({ theme }) => theme.radii.lg}px;
+  background-color: ${({ theme }) => theme.colors.surfaceMuted};
+`;
+
+export const ProductFallback = styled.View`
+  width: 76px;
+  height: 76px;
+  border-radius: ${({ theme }) => theme.radii.lg}px;
+  border-width: ${({ theme }) => theme.borderWidths.regular}px;
+  border-color: ${({ theme }) => theme.colors.border};
+  background-color: ${({ theme }) => theme.colors.surfaceStrong};
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StoreLogo = styled.Image.attrs({
+  resizeMode: 'cover',
+})`
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border-width: ${({ theme }) => theme.borderWidths.regular}px;
+  border-color: ${({ theme }) => theme.colors.surface};
+  background-color: ${({ theme }) => theme.colors.surfaceMuted};
+`;
+
+export const StoreFallback = styled.View`
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border-width: ${({ theme }) => theme.borderWidths.regular}px;
+  border-color: ${({ theme }) => theme.colors.surface};
+  background-color: ${({ theme }) => theme.colors.surfaceStrong};
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StoreInitial = styled.Text`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+`;
+
 export const Content = styled.View`
   flex: 1;
-  margin-left: ${({ theme }) => theme.spacing.lg}px;
   margin-right: ${({ theme }) => theme.spacing.md}px;
 `;
 
@@ -60,6 +119,26 @@ export const Title = styled.Text`
 export const Store = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  margin-top: ${({ theme }) => theme.spacing.xxs}px;
+`;
+
+export const PriceBlock = styled.View`
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+export const OriginalPrice = styled.Text`
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  text-decoration-line: line-through;
+`;
+
+export const CurrentPrice = styled.Text<AvailabilityProps>`
+  color: ${({ theme, $availability }) =>
+    $availability === 'expired' || $availability === 'used'
+      ? theme.colors.textMuted
+      : theme.colors.primary};
+  font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-weight: ${({ theme }) => theme.typography.weights.heavy};
   margin-top: ${({ theme }) => theme.spacing.xxs}px;
 `;
 
