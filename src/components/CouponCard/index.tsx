@@ -7,16 +7,28 @@ import {
   getCouponAvailability,
   isFlashCouponActive,
 } from '../../utils/couponStatus';
-import { formatDiscount } from '../../utils/formatters';
-import { IconBadge } from '../IconBadge';
+import {
+  formatCurrencyBR,
+  formatDiscount,
+  getDiscountedPrice,
+} from '../../utils/formatters';
 import {
   BadgesRow,
   Container,
   Content,
+  CurrentPrice,
   Discount,
   DiscountBox,
   FlashBadge,
   FlashText,
+  MediaWrapper,
+  OriginalPrice,
+  PriceBlock,
+  ProductFallback,
+  ProductImage,
+  StoreFallback,
+  StoreInitial,
+  StoreLogo,
   StatusBadge,
   StatusText,
   Store,
@@ -38,6 +50,13 @@ export function CouponCard({
   const availability = getCouponAvailability(coupon, now);
   const isActiveFlashCoupon = isFlashCouponActive(coupon, now);
   const flashTimeLeft = formatFlashCouponTimeLeft(coupon, now);
+  const originalPrice = coupon.originalPrice;
+  const hasPrice = typeof originalPrice === 'number';
+  const discountedPrice = hasPrice
+    ? coupon.discountedPrice ??
+      getDiscountedPrice(originalPrice, coupon.discountPercentage)
+    : null;
+  const storeInitial = coupon.store.trim().charAt(0).toUpperCase();
   const statusLabel = {
     available: '',
     expiringSoon: 'Expira em breve',
@@ -51,13 +70,45 @@ export function CouponCard({
       $availability={availability}
       onPress={onPress}
     >
-      <IconBadge size="lg">
-        <Tag color={theme.colors.primary} size={28} strokeWidth={1.8} />
-      </IconBadge>
+      <MediaWrapper>
+        {coupon.productImageUrl ? (
+          <ProductImage
+            accessibilityLabel={`Imagem do cupom ${coupon.title}`}
+            source={{ uri: coupon.productImageUrl }}
+          />
+        ) : (
+          <ProductFallback>
+            <Tag color={theme.colors.primary} size={28} strokeWidth={1.8} />
+          </ProductFallback>
+        )}
+
+        {coupon.storeImageUrl ? (
+          <StoreLogo
+            accessibilityLabel={`Imagem da loja ${coupon.store}`}
+            source={{ uri: coupon.storeImageUrl }}
+          />
+        ) : (
+          <StoreFallback>
+            <StoreInitial>{storeInitial}</StoreInitial>
+          </StoreFallback>
+        )}
+      </MediaWrapper>
 
       <Content>
         <Title numberOfLines={1}>{coupon.title}</Title>
         <Store numberOfLines={1}>{coupon.store}</Store>
+
+        {hasPrice && discountedPrice !== null ? (
+          <PriceBlock>
+            <OriginalPrice numberOfLines={1}>
+              {formatCurrencyBR(originalPrice)}
+            </OriginalPrice>
+            <CurrentPrice $availability={availability} numberOfLines={1}>
+              {formatCurrencyBR(discountedPrice)}
+            </CurrentPrice>
+          </PriceBlock>
+        ) : null}
+
         {isActiveFlashCoupon || statusLabel ? (
           <BadgesRow>
             {isActiveFlashCoupon ? (

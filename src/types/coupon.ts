@@ -12,6 +12,10 @@ export type Coupon = {
   redeemCode: string;
   isFlash?: boolean;
   flashExpiresAt?: string;
+  originalPrice?: number;
+  discountedPrice?: number;
+  storeImageUrl?: string;
+  productImageUrl?: string;
   description: string;
   rules: string[];
 };
