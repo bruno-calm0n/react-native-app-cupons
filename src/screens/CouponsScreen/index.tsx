@@ -23,13 +23,12 @@ import {
 } from './styles';
 
 type CouponsScreenProps = NativeStackScreenProps<RootStackParamList, 'Coupons'>;
-type CouponFilter = 'all' | 'valid' | 'used' | 'expired';
+type CouponFilter = 'all' | 'valid' | 'unavailable';
 
 const filterOptions: Array<{ label: string; value: CouponFilter }> = [
   { label: 'Todos', value: 'all' },
   { label: 'Válidos', value: 'valid' },
-  { label: 'Usados', value: 'used' },
-  { label: 'Expirados', value: 'expired' },
+  { label: 'Usados/Expirados', value: 'unavailable' },
 ];
 
 export function CouponsScreen({ navigation }: CouponsScreenProps) {
@@ -69,7 +68,7 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
         );
       }
 
-      return couponAvailability === selectedFilter;
+      return couponAvailability === 'used' || couponAvailability === 'expired';
     });
 
     return statusFilteredCoupons.sort(
