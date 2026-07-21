@@ -45,6 +45,17 @@ export const TopRow = styled.View`
   flex-direction: row;
 `;
 
+export const StorePhoto = styled.Image.attrs({
+  resizeMode: 'cover',
+})`
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  border-width: ${({ theme }) => theme.borderWidths.regular}px;
+  border-color: ${({ theme }) => theme.colors.border};
+  background-color: ${({ theme }) => theme.colors.surfaceMuted};
+`;
+
 export const CouponInfo = styled.View`
   flex: 1;
   margin-left: ${({ theme }) => theme.spacing.lg}px;

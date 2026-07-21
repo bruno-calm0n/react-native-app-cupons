@@ -18,6 +18,7 @@ import {
   StatusBadge,
   StatusText,
   Store,
+  StorePhoto,
   Title,
   TopRow,
   VerticalDivider,
@@ -40,9 +41,16 @@ export function CouponSummaryCard({ coupon }: CouponSummaryCardProps) {
   return (
     <Container>
       <TopRow>
-        <IconBadge size="lg">
-          <Tag color={theme.colors.primary} size={28} strokeWidth={1.8} />
-        </IconBadge>
+        {coupon.storeImageUrl ? (
+          <StorePhoto
+            accessibilityLabel={`Foto do estabelecimento ${coupon.store}`}
+            source={{ uri: coupon.storeImageUrl }}
+          />
+        ) : (
+          <IconBadge size="lg">
+            <Tag color={theme.colors.primary} size={28} strokeWidth={1.8} />
+          </IconBadge>
+        )}
 
         <CouponInfo>
           <Title numberOfLines={1}>{coupon.title}</Title>
