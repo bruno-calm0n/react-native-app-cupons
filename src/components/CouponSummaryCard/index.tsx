@@ -3,7 +3,12 @@ import { useTheme } from 'styled-components/native';
 
 import type { Coupon } from '../../types/coupon';
 import { getCouponAvailability } from '../../utils/couponStatus';
-import { formatDateBR, formatDiscount } from '../../utils/formatters';
+import {
+  formatCurrencyBR,
+  formatDateBR,
+  formatDiscount,
+  getDiscountedPrice,
+} from '../../utils/formatters';
 import { IconBadge } from '../IconBadge';
 import {
   Container,
@@ -12,16 +17,17 @@ import {
   Discount,
   DiscountBox,
   Divider,
+  DiscountedPrice,
   MetricColumn,
   MetricLabel,
   MetricsRow,
+  OriginalPrice,
   StatusBadge,
   StatusText,
   Store,
   StorePhoto,
   Title,
   TopRow,
-  VerticalDivider,
 } from './styles';
 
 type CouponSummaryCardProps = {
@@ -37,6 +43,12 @@ export function CouponSummaryCard({ coupon }: CouponSummaryCardProps) {
     expired: 'Expirado',
     used: 'Usado',
   }[availability];
+  const originalPrice = coupon.originalPrice;
+  const hasPrice = typeof originalPrice === 'number';
+  const discountedPrice = hasPrice
+    ? coupon.discountedPrice ??
+      getDiscountedPrice(originalPrice, coupon.discountPercentage)
+    : null;
 
   return (
     <Container>
@@ -67,13 +79,24 @@ export function CouponSummaryCard({ coupon }: CouponSummaryCardProps) {
 
       <MetricsRow>
         <MetricColumn>
-          <MetricLabel>Desconto</MetricLabel>
-          <DiscountBox>
-            <Discount>{formatDiscount(coupon.discountPercentage)}</Discount>
+          <MetricLabel>{' '}</MetricLabel>
+          <DiscountBox $availability={availability}>
+            <Discount $availability={availability}>
+              {formatDiscount(coupon.discountPercentage)}
+            </Discount>
+
+            {hasPrice && discountedPrice !== null ? (
+              <>
+                <OriginalPrice numberOfLines={1}>
+                  {formatCurrencyBR(originalPrice)}
+                </OriginalPrice>
+                <DiscountedPrice $availability={availability} numberOfLines={1}>
+                  {formatCurrencyBR(discountedPrice)}
+                </DiscountedPrice>
+              </>
+            ) : null}
           </DiscountBox>
         </MetricColumn>
-
-        <VerticalDivider />
 
         <MetricColumn>
           <MetricLabel>Válido até</MetricLabel>

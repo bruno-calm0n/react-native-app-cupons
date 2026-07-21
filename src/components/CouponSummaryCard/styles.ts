@@ -95,23 +95,18 @@ export const Divider = styled.View`
   height: ${({ theme }) => theme.borderWidths.regular}px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.border};
-  margin: ${({ theme }) => theme.spacing.lg}px 0;
+  margin: ${({ theme }) => theme.spacing.sm}px 0;
 `;
 
 export const MetricsRow = styled.View`
   align-items: center;
   flex-direction: row;
+  gap: ${({ theme }) => theme.spacing.lg}px;
 `;
 
 export const MetricColumn = styled.View`
   flex: 1;
   align-items: center;
-`;
-
-export const VerticalDivider = styled.View`
-  width: ${({ theme }) => theme.borderWidths.regular}px;
-  height: 96px;
-  background-color: ${({ theme }) => theme.colors.border};
 `;
 
 export const MetricLabel = styled.Text`
@@ -120,21 +115,44 @@ export const MetricLabel = styled.Text`
   margin-bottom: ${({ theme }) => theme.spacing.sm}px;
 `;
 
-export const DiscountBox = styled.View`
+export const DiscountBox = styled.View<AvailabilityProps>`
   min-width: 132px;
-  min-height: 70px;
+  min-height: 96px;
   border-radius: ${({ theme }) => theme.radii.sm}px;
   border-width: ${({ theme }) => theme.borderWidths.regular}px;
-  border-color: ${({ theme }) => theme.colors.primary};
-  background-color: ${({ theme }) => theme.colors.surfaceStrong};
+  border-color: ${({ theme, $availability }) =>
+    getStatusColor($availability, theme)};
+  background-color: ${({ theme, $availability }) =>
+    $availability === 'available' || $availability === 'expiringSoon'
+      ? theme.colors.surfaceStrong
+      : theme.colors.surfaceMuted};
   align-items: center;
   justify-content: center;
+  padding: ${({ theme }) => theme.spacing.sm}px
+    ${({ theme }) => theme.spacing.md}px;
 `;
 
-export const Discount = styled.Text`
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: ${({ theme }) => theme.typography.sizes.display}px;
+export const Discount = styled.Text<AvailabilityProps>`
+  color: ${({ theme, $availability }) => getStatusColor($availability, theme)};
+  font-size: ${({ theme }) => theme.typography.sizes.xxl}px;
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
+`;
+
+export const OriginalPrice = styled.Text`
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  margin-top: ${({ theme }) => theme.spacing.xs}px;
+  text-decoration-line: line-through;
+`;
+
+export const DiscountedPrice = styled.Text<AvailabilityProps>`
+  color: ${({ theme, $availability }) =>
+    $availability === 'expired' || $availability === 'used'
+      ? theme.colors.textMuted
+      : theme.colors.primary};
+  font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-weight: ${({ theme }) => theme.typography.weights.heavy};
+  margin-top: ${({ theme }) => theme.spacing.xxs}px;
 `;
 
 export const DateText = styled.Text`
