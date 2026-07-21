@@ -16,5 +16,6 @@ export const Field = styled.TextInput`
   flex: 1;
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   margin-left: ${({ theme }) => theme.spacing.md}px;
 `;

@@ -20,6 +20,13 @@ export const theme = {
     black: '#17202A',
   },
   typography: {
+    fonts: {
+      regular: 'PlusJakartaSans_400Regular',
+      medium: 'PlusJakartaSans_500Medium',
+      semibold: 'PlusJakartaSans_600SemiBold',
+      bold: 'PlusJakartaSans_700Bold',
+      heavy: 'PlusJakartaSans_800ExtraBold',
+    },
     sizes: {
       xs: 12,
       sm: 14,

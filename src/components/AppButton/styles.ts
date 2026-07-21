@@ -100,5 +100,6 @@ export const Title = styled.Text<TitleProps>`
     $size === 'small'
       ? theme.typography.sizes.sm
       : theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;

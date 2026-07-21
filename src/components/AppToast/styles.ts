@@ -23,6 +23,7 @@ export const Container = styled.View`
 export const Label = styled.Text`
   color: ${({ theme }) => theme.colors.success};
   font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
   text-transform: uppercase;
   margin-bottom: ${({ theme }) => theme.spacing.xs}px;
@@ -31,6 +32,7 @@ export const Label = styled.Text`
 export const Message = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   line-height: ${({ theme }) => theme.typography.lineHeights.regular}px;
 `;
