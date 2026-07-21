@@ -46,6 +46,7 @@ export const Avatar = styled.View`
 export const AvatarInitials = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.lg}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
 `;
 
@@ -56,6 +57,7 @@ export const CardSection = styled.View`
 export const Name = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.xl}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
   line-height: ${({ theme }) => theme.typography.lineHeights.title}px;
 `;
@@ -63,12 +65,14 @@ export const Name = styled.Text`
 export const Subtitle = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   line-height: ${({ theme }) => theme.typography.lineHeights.regular}px;
 `;
 
 export const SectionTitle = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.lg}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   margin-top: ${({ theme }) => theme.spacing.sm}px;
@@ -88,6 +92,7 @@ export const DataContent = styled.View`
 export const DataLabel = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.semibold};
   font-weight: ${({ theme }) => theme.typography.weights.semibold};
   margin-bottom: ${({ theme }) => theme.spacing.xxs}px;
 `;
@@ -95,6 +100,7 @@ export const DataLabel = styled.Text`
 export const DataValue = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   line-height: ${({ theme }) => theme.typography.lineHeights.regular}px;
 `;
 

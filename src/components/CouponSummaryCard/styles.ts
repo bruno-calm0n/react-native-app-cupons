@@ -65,12 +65,14 @@ export const CouponInfo = styled.View`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.xl}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
 `;
 
 export const Store = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.lg}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   margin-top: ${({ theme }) => theme.spacing.xxs}px;
 `;
 
@@ -88,6 +90,7 @@ export const StatusBadge = styled.View<AvailabilityProps>`
 export const StatusText = styled.Text<AvailabilityProps>`
   color: ${({ theme, $availability }) => getStatusColor($availability, theme)};
   font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;
 
@@ -112,6 +115,7 @@ export const MetricColumn = styled.View`
 export const MetricLabel = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.lg}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   margin-bottom: ${({ theme }) => theme.spacing.sm}px;
 `;
 
@@ -135,12 +139,14 @@ export const DiscountBox = styled.View<AvailabilityProps>`
 export const Discount = styled.Text<AvailabilityProps>`
   color: ${({ theme, $availability }) => getStatusColor($availability, theme)};
   font-size: ${({ theme }) => theme.typography.sizes.xxl}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
 `;
 
 export const OriginalPrice = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   margin-top: ${({ theme }) => theme.spacing.xs}px;
   text-decoration-line: line-through;
 `;
@@ -151,6 +157,7 @@ export const DiscountedPrice = styled.Text<AvailabilityProps>`
       ? theme.colors.textMuted
       : theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
   margin-top: ${({ theme }) => theme.spacing.xxs}px;
 `;
@@ -158,5 +165,6 @@ export const DiscountedPrice = styled.Text<AvailabilityProps>`
 export const DateText = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.xl}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;

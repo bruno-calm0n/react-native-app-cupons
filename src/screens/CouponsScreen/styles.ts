@@ -31,6 +31,7 @@ export const HeaderContent = styled.View`
 export const Eyebrow = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: 0px;
   margin-bottom: 0px;
@@ -40,6 +41,7 @@ export const Eyebrow = styled.Text`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.xxl}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
   line-height: ${({ theme }) => theme.typography.lineHeights.title}px;
 `;
@@ -47,6 +49,7 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   line-height: ${({ theme }) => theme.typography.lineHeights.regular}px;
   margin-top: ${({ theme }) => theme.spacing.sm}px;
 `;

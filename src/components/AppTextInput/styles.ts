@@ -8,6 +8,7 @@ export const Container = styled.View`
 export const Label = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   margin-bottom: ${({ theme }) => theme.spacing.xs}px;
 `;
@@ -26,6 +27,7 @@ export const Field = styled.TextInput<FieldProps>`
   background-color: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   padding: ${({ theme }) => theme.spacing.md}px
     ${({ theme }) => theme.spacing.lg}px;
 `;
@@ -33,5 +35,6 @@ export const Field = styled.TextInput<FieldProps>`
 export const ErrorMessage = styled.Text`
   color: ${({ theme }) => theme.colors.danger};
   font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   margin-top: ${({ theme }) => theme.spacing.xs}px;
 `;

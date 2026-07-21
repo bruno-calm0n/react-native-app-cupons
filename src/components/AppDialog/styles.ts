@@ -39,6 +39,7 @@ export const Content = styled.View`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.xl}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
   margin-bottom: ${({ theme }) => theme.spacing.sm}px;
 `;
@@ -46,6 +47,7 @@ export const Title = styled.Text`
 export const Message = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   line-height: ${({ theme }) => theme.typography.lineHeights.regular}px;
 `;
 

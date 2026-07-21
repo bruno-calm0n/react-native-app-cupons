@@ -102,6 +102,7 @@ export const StoreFallback = styled.View`
 export const StoreInitial = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;
 
@@ -113,12 +114,14 @@ export const Content = styled.View`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;
 
 export const Store = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   margin-top: ${({ theme }) => theme.spacing.xxs}px;
 `;
 
@@ -129,6 +132,7 @@ export const PriceBlock = styled.View`
 export const OriginalPrice = styled.Text`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   text-decoration-line: line-through;
 `;
 
@@ -138,6 +142,7 @@ export const CurrentPrice = styled.Text<AvailabilityProps>`
       ? theme.colors.textMuted
       : theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
   margin-top: ${({ theme }) => theme.spacing.xxs}px;
 `;
@@ -162,6 +167,7 @@ export const FlashBadge = styled.View`
 export const FlashText = styled.Text`
   color: ${({ theme }) => theme.colors.warning};
   font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;
 
@@ -178,6 +184,7 @@ export const StatusBadge = styled.View<AvailabilityProps>`
 export const StatusText = styled.Text<AvailabilityProps>`
   color: ${({ theme, $availability }) => getStatusColor($availability, theme)};
   font-size: ${({ theme }) => theme.typography.sizes.xs}px;
+  font-family: ${({ theme }) => theme.typography.fonts.bold};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
 `;
 
@@ -200,5 +207,6 @@ export const DiscountBox = styled.View<AvailabilityProps>`
 export const Discount = styled.Text<AvailabilityProps>`
   color: ${({ theme, $availability }) => getStatusColor($availability, theme)};
   font-size: ${({ theme }) => theme.typography.sizes.xl}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
   font-weight: ${({ theme }) => theme.typography.weights.heavy};
 `;

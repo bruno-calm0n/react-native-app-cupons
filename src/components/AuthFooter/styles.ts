@@ -9,6 +9,7 @@ export const Container = styled.View`
 export const Text = styled.Text`
   color: ${({ theme }) => theme.colors.textSoft};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
 `;
 
 export const Action = styled.TouchableOpacity`
@@ -18,5 +19,6 @@ export const Action = styled.TouchableOpacity`
 export const ActionText = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.regular};
   text-decoration-line: underline;
 `;

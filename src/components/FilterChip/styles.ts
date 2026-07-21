@@ -22,5 +22,6 @@ export const Label = styled.Text<FilterChipStyleProps>`
   color: ${({ theme, $selected }) =>
     $selected ? theme.colors.white : theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.sm}px;
+  font-family: ${({ theme }) => theme.typography.fonts.semibold};
   font-weight: ${({ theme }) => theme.typography.weights.semibold};
 `;
