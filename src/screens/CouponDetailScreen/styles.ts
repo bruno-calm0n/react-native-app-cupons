@@ -48,11 +48,3 @@ export const RuleText = styled.Text`
 export const ActionWrapper = styled.View`
   margin-top: ${({ theme }) => theme.spacing.sm}px;
 `;
-
-export const BlockedMessage = styled.Text`
-  color: ${({ theme }) => theme.colors.textMuted};
-  font-size: ${({ theme }) => theme.typography.sizes.sm}px;
-  font-family: ${({ theme }) => theme.typography.fonts.regular};
-  line-height: ${({ theme }) => theme.typography.lineHeights.tight}px;
-  text-align: center;
-`;

@@ -33,6 +33,7 @@ export const coupons: Coupon[] = [
   {
     id: 'pizza-em-dobro',
     title: 'Pizza em Dobro',
+    storeId: 'pizzaria-bella',
     store: 'Pizzaria Bella',
     discountPercentage: 20,
     validUntil: '2026-07-14',
@@ -55,6 +56,7 @@ export const coupons: Coupon[] = [
   {
     id: 'combo-burger',
     title: 'Combo Burger',
+    storeId: 'burger-point',
     store: 'Burger Point',
     discountPercentage: 15,
     validUntil: '2026-10-15',
@@ -76,6 +78,7 @@ export const coupons: Coupon[] = [
   {
     id: 'cafe-da-tarde',
     title: 'Café da Tarde',
+    storeId: 'cafe-central',
     store: 'Café Central',
     discountPercentage: 10,
     validUntil: '2026-08-31',
@@ -95,6 +98,7 @@ export const coupons: Coupon[] = [
   {
     id: 'rodizio-especial',
     title: 'Rodízio Especial',
+    storeId: 'sabor-brasil',
     store: 'Sabor Brasil',
     discountPercentage: 25,
     validUntil: '2026-07-01',
@@ -114,6 +118,7 @@ export const coupons: Coupon[] = [
   {
     id: 'sobremesa-gratis',
     title: 'Sobremesa Grátis',
+    storeId: 'doce-vida',
     store: 'Doce Vida',
     discountPercentage: 30,
     validUntil: '2026-12-05',

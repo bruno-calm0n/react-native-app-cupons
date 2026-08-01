@@ -5,6 +5,9 @@ export type RootStackParamList = {
   Coupons: undefined;
   Profile: undefined;
   UnavailableCoupons: undefined;
+  StoreProfile: {
+    storeId: string;
+  };
   CouponDetail: {
     couponId: string;
   };

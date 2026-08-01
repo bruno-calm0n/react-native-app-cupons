@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { Linking, Share } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BadgePercent, Share2, Ticket } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
@@ -14,6 +13,7 @@ import {
   getCouponAvailability,
   getCouponBlockedMessage,
 } from '../../utils/couponStatus';
+import { shareCouponViaWhatsApp } from '../../utils/couponShare';
 import { formatDateBR, formatDiscount } from '../../utils/formatters';
 import {
   ActionStack,
@@ -91,20 +91,7 @@ export function CouponCodeScreen({
   const unavailableMessage = getCouponBlockedMessage(selectedCoupon);
 
   async function handleShareCouponCode() {
-    const message = [
-      `${selectedCoupon.title} - ${selectedCoupon.store}`,
-      `Código: ${selectedCoupon.redeemCode}`,
-      `Desconto: ${formatDiscount(selectedCoupon.discountPercentage)}`,
-      `Válido até: ${formatDateBR(selectedCoupon.validUntil)}`,
-    ].join('\n');
-    const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(message)}`;
-
-    if (await Linking.canOpenURL(whatsappUrl)) {
-      await Linking.openURL(whatsappUrl);
-      return;
-    }
-
-    await Share.share({ message });
+    await shareCouponViaWhatsApp(selectedCoupon);
   }
 
   return (
