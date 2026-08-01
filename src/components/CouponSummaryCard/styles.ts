@@ -41,6 +41,13 @@ export const Container = styled.View`
 `;
 
 export const TopRow = styled.View`
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export const TopButton = styled.TouchableOpacity`
+  width: 100%;
   align-items: center;
   flex-direction: row;
 `;
@@ -122,6 +129,7 @@ export const MetricLabel = styled.Text`
 export const DiscountBox = styled.View<AvailabilityProps>`
   min-width: 132px;
   min-height: 96px;
+  width: 100%;
   border-radius: ${({ theme }) => theme.radii.sm}px;
   border-width: ${({ theme }) => theme.borderWidths.regular}px;
   border-color: ${({ theme, $availability }) =>

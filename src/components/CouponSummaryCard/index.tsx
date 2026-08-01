@@ -26,15 +26,22 @@ import {
   StatusText,
   Store,
   StorePhoto,
+  TopButton,
   Title,
   TopRow,
 } from './styles';
 
 type CouponSummaryCardProps = {
   coupon: Coupon;
+  onStorePress?: () => void;
+  showValidity?: boolean;
 };
 
-export function CouponSummaryCard({ coupon }: CouponSummaryCardProps) {
+export function CouponSummaryCard({
+  coupon,
+  onStorePress,
+  showValidity = true,
+}: CouponSummaryCardProps) {
   const theme = useTheme();
   const availability = getCouponAvailability(coupon);
   const statusLabel = {
@@ -52,34 +59,64 @@ export function CouponSummaryCard({ coupon }: CouponSummaryCardProps) {
 
   return (
     <Container>
-      <TopRow>
-        {coupon.storeImageUrl ? (
-          <StorePhoto
-            accessibilityLabel={`Foto do estabelecimento ${coupon.store}`}
-            source={{ uri: coupon.storeImageUrl }}
-          />
-        ) : (
-          <IconBadge size="lg">
-            <Tag color={theme.colors.primary} size={28} strokeWidth={1.8} />
-          </IconBadge>
-        )}
+      {onStorePress ? (
+        <TopButton
+          accessibilityLabel={`Abrir perfil da loja ${coupon.store}`}
+          accessibilityRole="button"
+          activeOpacity={0.78}
+          onPress={onStorePress}
+        >
+          {coupon.storeImageUrl ? (
+            <StorePhoto
+              accessibilityLabel={`Foto do estabelecimento ${coupon.store}`}
+              source={{ uri: coupon.storeImageUrl }}
+            />
+          ) : (
+            <IconBadge size="lg">
+              <Tag color={theme.colors.primary} size={28} strokeWidth={1.8} />
+            </IconBadge>
+          )}
 
-        <CouponInfo>
-          <Title numberOfLines={1}>{coupon.title}</Title>
-          <Store numberOfLines={1}>{coupon.store}</Store>
-          {statusLabel ? (
-            <StatusBadge $availability={availability}>
-              <StatusText $availability={availability}>{statusLabel}</StatusText>
-            </StatusBadge>
-          ) : null}
-        </CouponInfo>
-      </TopRow>
+          <CouponInfo>
+            <Title numberOfLines={1}>{coupon.title}</Title>
+            <Store numberOfLines={1}>{coupon.store}</Store>
+            {statusLabel ? (
+              <StatusBadge $availability={availability}>
+                <StatusText $availability={availability}>{statusLabel}</StatusText>
+              </StatusBadge>
+            ) : null}
+          </CouponInfo>
+        </TopButton>
+      ) : (
+        <TopRow>
+          {coupon.storeImageUrl ? (
+            <StorePhoto
+              accessibilityLabel={`Foto do estabelecimento ${coupon.store}`}
+              source={{ uri: coupon.storeImageUrl }}
+            />
+          ) : (
+            <IconBadge size="lg">
+              <Tag color={theme.colors.primary} size={28} strokeWidth={1.8} />
+            </IconBadge>
+          )}
+
+          <CouponInfo>
+            <Title numberOfLines={1}>{coupon.title}</Title>
+            <Store numberOfLines={1}>{coupon.store}</Store>
+            {statusLabel ? (
+              <StatusBadge $availability={availability}>
+                <StatusText $availability={availability}>{statusLabel}</StatusText>
+              </StatusBadge>
+            ) : null}
+          </CouponInfo>
+        </TopRow>
+      )}
 
       <Divider />
 
       <MetricsRow>
         <MetricColumn>
-          <MetricLabel>{' '}</MetricLabel>
+          {showValidity ? <MetricLabel>{' '}</MetricLabel> : null}
           <DiscountBox $availability={availability}>
             <Discount $availability={availability}>
               {formatDiscount(coupon.discountPercentage)}
@@ -98,10 +135,12 @@ export function CouponSummaryCard({ coupon }: CouponSummaryCardProps) {
           </DiscountBox>
         </MetricColumn>
 
-        <MetricColumn>
-          <MetricLabel>Válido até</MetricLabel>
-          <DateText>{formatDateBR(coupon.validUntil)}</DateText>
-        </MetricColumn>
+        {showValidity ? (
+          <MetricColumn>
+            <MetricLabel>Válido até</MetricLabel>
+            <DateText>{formatDateBR(coupon.validUntil)}</DateText>
+          </MetricColumn>
+        ) : null}
       </MetricsRow>
     </Container>
   );

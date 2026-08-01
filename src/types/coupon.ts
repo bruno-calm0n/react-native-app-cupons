@@ -5,6 +5,7 @@ export type CouponAvailability = CouponStatus | 'expiringSoon';
 export type Coupon = {
   id: string;
   title: string;
+  storeId: string;
   store: string;
   discountPercentage: number;
   validUntil: string;
