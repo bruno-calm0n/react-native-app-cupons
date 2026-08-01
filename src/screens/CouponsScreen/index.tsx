@@ -26,13 +26,12 @@ import {
 } from './styles';
 
 type CouponsScreenProps = NativeStackScreenProps<RootStackParamList, 'Coupons'>;
-type CouponFilter = 'all' | 'flash' | 'valid' | 'unavailable';
+type CouponFilter = 'all' | 'flash' | 'valid';
 
 const filterOptions: Array<{ label: string; value: CouponFilter }> = [
   { label: 'Todos', value: 'all' },
   { label: 'Relâmpago', value: 'flash' },
   { label: 'Válidos', value: 'valid' },
-  { label: 'Usados/Expirados', value: 'unavailable' },
 ];
 
 export function CouponsScreen({ navigation }: CouponsScreenProps) {
@@ -68,24 +67,24 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
       : [...coupons];
 
     const statusFilteredCoupons = searchedCoupons.filter((coupon) => {
-      if (selectedFilter === 'all') {
-        return true;
-      }
-
       const couponAvailability = getCouponAvailability(coupon, now);
+      const isAvailableCoupon =
+        couponAvailability === 'available' ||
+        couponAvailability === 'expiringSoon';
+
+      if (selectedFilter === 'all') {
+        return isAvailableCoupon;
+      }
 
       if (selectedFilter === 'flash') {
         return isFlashCouponActive(coupon, now);
       }
 
       if (selectedFilter === 'valid') {
-        return (
-          couponAvailability === 'available' ||
-          couponAvailability === 'expiringSoon'
-        );
+        return isAvailableCoupon;
       }
 
-      return couponAvailability === 'used' || couponAvailability === 'expired';
+      return false;
     });
 
     return statusFilteredCoupons.sort(
