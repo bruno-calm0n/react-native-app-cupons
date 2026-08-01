@@ -10,12 +10,14 @@ type AppTextInputProps = TextInputProps & {
 
 export function AppTextInput({ label, error, ...props }: AppTextInputProps) {
   const theme = useTheme();
+  const isReadOnly = props.editable === false;
 
   return (
     <Container>
       <Label>{label}</Label>
       <Field
         $hasError={Boolean(error)}
+        $isReadOnly={isReadOnly}
         placeholderTextColor={theme.colors.textSoft}
         selectionColor={theme.colors.text}
         {...props}

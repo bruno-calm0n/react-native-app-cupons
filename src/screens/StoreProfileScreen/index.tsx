@@ -14,6 +14,7 @@ import {
   getCouponAvailability,
   isFlashCouponActive,
 } from '../../utils/couponStatus';
+import { storeCategoryLabels } from '../../utils/storeCategories';
 import {
   AddressText,
   AvailableCount,
@@ -40,16 +41,6 @@ type StoreProfileScreenProps = NativeStackScreenProps<
 >;
 
 const maxFeaturedCoupons = 5;
-
-const storeCategoryLabels = {
-  alimentos: 'Alimentos',
-  automotivo: 'Automotivo',
-  'casa-decoracao': 'Casa e decoração',
-  'construcao-reforma': 'Construção e reforma',
-  'saude-beleza': 'Saúde e beleza',
-  tecnologico: 'Tecnológico',
-  'vestuario-acessorios': 'Vestuário e acessórios',
-};
 
 function getStoreInitial(name: string) {
   return name.trim().charAt(0).toUpperCase() || 'L';

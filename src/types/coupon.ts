@@ -1,3 +1,5 @@
+import type { StoreCategory } from './store';
+
 export type CouponStatus = 'available' | 'used' | 'expired';
 
 export type CouponAvailability = CouponStatus | 'expiringSoon';
@@ -6,6 +8,7 @@ export type Coupon = {
   id: string;
   title: string;
   storeId: string;
+  storeCategory: StoreCategory;
   store: string;
   discountPercentage: number;
   validUntil: string;

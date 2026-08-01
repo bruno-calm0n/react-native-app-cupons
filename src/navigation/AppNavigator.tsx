@@ -6,6 +6,7 @@ import { CouponDetailScreen } from '../screens/CouponDetailScreen';
 import { CouponsScreen } from '../screens/CouponsScreen';
 import { ForgotPasswordScreen } from '../screens/ForgotPasswordScreen';
 import { LoginScreen } from '../screens/LoginScreen';
+import { PersonalDataScreen } from '../screens/PersonalDataScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import { StoreProfileScreen } from '../screens/StoreProfileScreen';
@@ -28,6 +29,7 @@ export function AppNavigator() {
         <Stack.Screen component={ForgotPasswordScreen} name="ForgotPassword" />
         <Stack.Screen component={CouponsScreen} name="Coupons" />
         <Stack.Screen component={ProfileScreen} name="Profile" />
+        <Stack.Screen component={PersonalDataScreen} name="PersonalData" />
         <Stack.Screen
           component={UnavailableCouponsScreen}
           name="UnavailableCoupons"
