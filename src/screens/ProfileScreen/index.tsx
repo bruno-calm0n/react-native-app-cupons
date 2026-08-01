@@ -1,5 +1,5 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { LogOut, Mail, Phone, UserRound } from 'lucide-react-native';
+import { LogOut, Mail, Phone, Ticket, UserRound } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { AppButton } from '../../components/AppButton';
@@ -118,6 +118,17 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
               </DataContent>
             </DataRow>
           </AppCard>
+
+          <SectionTitle>Cupons</SectionTitle>
+
+          <AppButton
+            icon={
+              <Ticket color={theme.colors.primary} size={20} strokeWidth={1.9} />
+            }
+            onPress={() => navigation.navigate('UnavailableCoupons')}
+            title="Cupons usados e expirados"
+            variant="secondary"
+          />
 
           <ActionWrapper>
             <AppButton

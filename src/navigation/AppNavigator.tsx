@@ -8,6 +8,7 @@ import { ForgotPasswordScreen } from '../screens/ForgotPasswordScreen';
 import { LoginScreen } from '../screens/LoginScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
+import { UnavailableCouponsScreen } from '../screens/UnavailableCouponsScreen';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,6 +27,10 @@ export function AppNavigator() {
         <Stack.Screen component={ForgotPasswordScreen} name="ForgotPassword" />
         <Stack.Screen component={CouponsScreen} name="Coupons" />
         <Stack.Screen component={ProfileScreen} name="Profile" />
+        <Stack.Screen
+          component={UnavailableCouponsScreen}
+          name="UnavailableCoupons"
+        />
         <Stack.Screen component={CouponDetailScreen} name="CouponDetail" />
         <Stack.Screen component={CouponCodeScreen} name="CouponCode" />
       </Stack.Navigator>
