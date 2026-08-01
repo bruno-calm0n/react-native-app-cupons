@@ -15,6 +15,7 @@ export const Label = styled.Text`
 
 type FieldProps = {
   $hasError: boolean;
+  $isReadOnly: boolean;
 };
 
 export const Field = styled.TextInput<FieldProps>`
@@ -24,8 +25,10 @@ export const Field = styled.TextInput<FieldProps>`
   border-width: ${({ theme }) => theme.borderWidths.regular}px;
   border-color: ${({ theme, $hasError }) =>
     $hasError ? theme.colors.danger : theme.colors.border};
-  background-color: ${({ theme }) => theme.colors.surface};
-  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme, $isReadOnly }) =>
+    $isReadOnly ? theme.colors.surfaceMuted : theme.colors.surface};
+  color: ${({ theme, $isReadOnly }) =>
+    $isReadOnly ? theme.colors.textMuted : theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md}px;
   font-family: ${({ theme }) => theme.typography.fonts.regular};
   padding: ${({ theme }) => theme.spacing.md}px

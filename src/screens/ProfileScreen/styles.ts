@@ -41,6 +41,15 @@ export const Avatar = styled.View`
   border-width: ${({ theme }) => theme.borderWidths.regular}px;
   border-color: ${({ theme }) => theme.colors.borderStrong};
   margin-right: ${({ theme }) => theme.spacing.lg}px;
+  overflow: hidden;
+`;
+
+export const AvatarImage = styled.Image.attrs({
+  resizeMode: 'cover',
+})`
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
 `;
 
 export const AvatarInitials = styled.Text`
@@ -76,32 +85,6 @@ export const SectionTitle = styled.Text`
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   margin-top: ${({ theme }) => theme.spacing.sm}px;
-`;
-
-export const DataRow = styled.View`
-  align-items: center;
-  flex-direction: row;
-  padding: ${({ theme }) => theme.spacing.md}px 0;
-`;
-
-export const DataContent = styled.View`
-  flex: 1;
-  margin-left: ${({ theme }) => theme.spacing.md}px;
-`;
-
-export const DataLabel = styled.Text`
-  color: ${({ theme }) => theme.colors.textMuted};
-  font-size: ${({ theme }) => theme.typography.sizes.sm}px;
-  font-family: ${({ theme }) => theme.typography.fonts.semibold};
-  font-weight: ${({ theme }) => theme.typography.weights.semibold};
-  margin-bottom: ${({ theme }) => theme.spacing.xxs}px;
-`;
-
-export const DataValue = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.typography.sizes.md}px;
-  font-family: ${({ theme }) => theme.typography.fonts.regular};
-  line-height: ${({ theme }) => theme.typography.lineHeights.regular}px;
 `;
 
 export const ActionWrapper = styled.View`

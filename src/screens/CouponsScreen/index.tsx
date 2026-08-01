@@ -1,18 +1,22 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { UserRound } from 'lucide-react-native';
+import { ListFilter } from 'lucide-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { CouponCard } from '../../components/CouponCard';
 import { EmptyState } from '../../components/EmptyState';
 import { FilterChip } from '../../components/FilterChip';
 import { SearchInput } from '../../components/SearchInput';
+import { StoreCategoryFilterDialog } from '../../components/StoreCategoryFilterDialog';
 import { coupons } from '../../mocks/coupons';
+import { customer } from '../../mocks/customer';
 import type { RootStackParamList } from '../../navigation/types';
+import type { StoreCategoryFilter } from '../../types/store';
 import {
   getCouponAvailability,
   isFlashCouponActive,
 } from '../../utils/couponStatus';
+import { getCustomerInitials } from '../../utils/customerInitials';
 import {
   Container,
   Eyebrow,
@@ -21,6 +25,8 @@ import {
   HeaderContent,
   List,
   ProfileButton,
+  ProfileImage,
+  ProfileInitials,
   SafeArea,
   SearchWrapper,
 } from './styles';
@@ -38,6 +44,9 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
   const theme = useTheme();
   const [search, setSearch] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<CouponFilter>('all');
+  const [selectedCategory, setSelectedCategory] =
+    useState<StoreCategoryFilter>('all');
+  const [isCategoryFilterVisible, setIsCategoryFilterVisible] = useState(false);
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -66,7 +75,15 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
         })
       : [...coupons];
 
-    const statusFilteredCoupons = searchedCoupons.filter((coupon) => {
+    const categoryFilteredCoupons = searchedCoupons.filter((coupon) => {
+      if (selectedCategory === 'all') {
+        return true;
+      }
+
+      return coupon.storeCategory === selectedCategory;
+    });
+
+    const statusFilteredCoupons = categoryFilteredCoupons.filter((coupon) => {
       const couponAvailability = getCouponAvailability(coupon, now);
       const isAvailableCoupon =
         couponAvailability === 'available' ||
@@ -92,7 +109,9 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
         availabilityPriority[getCouponAvailability(firstCoupon, now)] -
         availabilityPriority[getCouponAvailability(secondCoupon, now)],
     );
-  }, [now, search, selectedFilter]);
+  }, [now, search, selectedCategory, selectedFilter]);
+
+  const isCategoryFilterActive = selectedCategory !== 'all';
 
   return (
     <SafeArea edges={['top', 'bottom']}>
@@ -107,14 +126,33 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
             activeOpacity={0.78}
             onPress={() => navigation.navigate('Profile')}
           >
-            <UserRound color={theme.colors.primary} size={28} strokeWidth={1.8} />
+            {customer.avatarUrl ? (
+              <ProfileImage source={{ uri: customer.avatarUrl }} />
+            ) : (
+              <ProfileInitials>
+                {getCustomerInitials(customer.name)}
+              </ProfileInitials>
+            )}
           </ProfileButton>
         </Header>
 
         <SearchWrapper>
           <SearchInput
             onChangeText={setSearch}
+            onRightPress={() => setIsCategoryFilterVisible(true)}
             placeholder="Pesquisar estabelecimentos e cupons"
+            rightAccessibilityLabel="Abrir filtro de setores"
+            rightIcon={
+              <ListFilter
+                color={
+                  isCategoryFilterActive
+                    ? theme.colors.primary
+                    : theme.colors.icon
+                }
+                size={22}
+                strokeWidth={1.9}
+              />
+            }
             value={search}
           />
         </SearchWrapper>
@@ -150,6 +188,13 @@ export function CouponsScreen({ navigation }: CouponsScreenProps) {
               }
             />
           )}
+        />
+
+        <StoreCategoryFilterDialog
+          onClose={() => setIsCategoryFilterVisible(false)}
+          onSelectCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
+          visible={isCategoryFilterVisible}
         />
       </Container>
     </SafeArea>

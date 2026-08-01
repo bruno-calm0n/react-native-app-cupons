@@ -19,3 +19,11 @@ export const Field = styled.TextInput`
   font-family: ${({ theme }) => theme.typography.fonts.regular};
   margin-left: ${({ theme }) => theme.spacing.md}px;
 `;
+
+export const RightButton = styled.TouchableOpacity`
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  margin-left: ${({ theme }) => theme.spacing.sm}px;
+`;

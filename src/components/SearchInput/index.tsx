@@ -1,12 +1,22 @@
+import type { ReactNode } from 'react';
 import { Search } from 'lucide-react-native';
 import type { TextInputProps } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
-import { Container, Field } from './styles';
+import { Container, Field, RightButton } from './styles';
 
-type SearchInputProps = TextInputProps;
+type SearchInputProps = TextInputProps & {
+  rightIcon?: ReactNode;
+  onRightPress?: () => void;
+  rightAccessibilityLabel?: string;
+};
 
-export function SearchInput(props: SearchInputProps) {
+export function SearchInput({
+  rightIcon,
+  onRightPress,
+  rightAccessibilityLabel,
+  ...props
+}: SearchInputProps) {
   const theme = useTheme();
 
   return (
@@ -18,6 +28,16 @@ export function SearchInput(props: SearchInputProps) {
         selectionColor={theme.colors.text}
         {...props}
       />
+      {rightIcon && onRightPress ? (
+        <RightButton
+          accessibilityLabel={rightAccessibilityLabel}
+          accessibilityRole="button"
+          activeOpacity={0.78}
+          onPress={onRightPress}
+        >
+          {rightIcon}
+        </RightButton>
+      ) : null}
     </Container>
   );
 }

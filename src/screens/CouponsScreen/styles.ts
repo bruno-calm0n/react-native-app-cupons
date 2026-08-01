@@ -59,10 +59,26 @@ export const ProfileButton = styled.TouchableOpacity`
   height: 48px;
   border-radius: 24px;
   border-width: ${({ theme }) => theme.borderWidths.regular}px;
-  border-color: ${({ theme }) => theme.colors.border};
-  background-color: ${({ theme }) => theme.colors.surface};
+  border-color: ${({ theme }) => theme.colors.borderStrong};
+  background-color: ${({ theme }) => theme.colors.surfaceStrong};
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+`;
+
+export const ProfileImage = styled.Image.attrs({
+  resizeMode: 'cover',
+})`
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+`;
+
+export const ProfileInitials = styled.Text`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${({ theme }) => theme.typography.sizes.md}px;
+  font-family: ${({ theme }) => theme.typography.fonts.heavy};
+  font-weight: ${({ theme }) => theme.typography.weights.heavy};
 `;
 
 export const SearchWrapper = styled.View`

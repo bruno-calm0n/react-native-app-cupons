@@ -7,6 +7,8 @@ export type StoreCategory =
   | 'tecnologico'
   | 'automotivo';
 
+export type StoreCategoryFilter = StoreCategory | 'all';
+
 export type Store = {
   id: string;
   name: string;
